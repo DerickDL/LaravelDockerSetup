@@ -1,0 +1,32 @@
+Permission Issue on files - https://github.com/aschmelyun/docker-compose-laravel/issues/49#issuecomment-683695547
+
+
+######Composer Commands######
+* Creating Laravel App using Composer:
+    - docker-compose run --rm --user 1000:1000 composer create-project --prefer-dist laravel/laravel . "8.*"
+* PHP Artisan Commands  
+    - docker-compose exec php php /var/www/html/artisan --version
+    - note, you can set separate container for artisan service, so you can execute artisan command like this: docker-compose run --rm artisan --version
+
+
+######Command to Access Container Terminal/Console######
+    - docker-compose exec <container_name> /bin/sh
+
+
+ ######For Env######
+    - DB_HOST=mysql -> the db host value is the container name of the database, in our case "mysql" 
+
+
+#####Entrypoint Attribute######
+    -  docker-compose run --rm artisan php artisan --version -> without setting Entrypoint 
+    but if you will set an entrypoint like this = entrypoint: ["php", "artisan"], you will only need to execute artisan command like this  
+    - docker-compose run --rm artisan --version
+
+
+
+#####ISSUE with npm container######
+npm ERR! Tracker "idealTree" already exists 
+    > fixed this by creating npm.dockerfile and adding WORKDIR
+
+####ROADBLOCK IN SETTING APP URL######
+> Set in host file!!!
